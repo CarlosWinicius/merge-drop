@@ -54,3 +54,5 @@ docker compose up --build -d
 Abra `http://localhost:8080`. O endpoint `http://localhost:8080/healthz` retorna `ok`. O banco permanece no Supabase; o container não guarda dados do jogador.
 
 Para um deploy Docker no Render, o arquivo `render.yaml` já define o serviço e o health check. Para produção web estática, use Cloudflare Pages com build `npm run build` e saída `dist`.
+
+O workflow `.github/workflows/deploy-pages.yml` publica automaticamente a versão web no GitHub Pages a cada push na branch `main`.
