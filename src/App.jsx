@@ -18,7 +18,7 @@ function App() {
     return () => engine.destroy();
   }, []);
 
-  const engine = engineRef.current;
+  const getEngine = () => engineRef.current;
   const playing = game.status === "playing";
   const target = game.largest < 128 ? 128 : game.largest < 512 ? 512 : 2048;
   const progress = Math.min(100, (game.largest / target) * 100);
@@ -52,23 +52,23 @@ function App() {
           <div className="fever-track"><i style={{ width: `${game.turbo ? 100 : game.fever}%` }} /></div>
           <small>{game.turbo ? `TURBO ${game.turbo}s` : "encha com fusões"}</small>
         </div>
-        {game.status === "idle" && <Overlay><p className="mini-label">PRONTO?</p><h2>Faça blocos<br />gigantes.</h2><p>Una números iguais antes que a pilha alcance o topo.</p><button className="primary" onClick={() => engine.start()}>JOGAR AGORA <span>→</span></button></Overlay>}
-        {game.status === "paused" && <Overlay><p className="mini-label">PAUSADO</p><h2>Respira.</h2><button className="primary" onClick={() => engine.resume()}>CONTINUAR</button></Overlay>}
+        {game.status === "idle" && <Overlay><p className="mini-label">PRONTO?</p><h2>Faça blocos<br />gigantes.</h2><p>Una números iguais antes que a pilha alcance o topo.</p><button className="primary" onClick={() => getEngine()?.start()}>JOGAR AGORA <span>→</span></button></Overlay>}
+        {game.status === "paused" && <Overlay><p className="mini-label">PAUSADO</p><h2>Respira.</h2><button className="primary" onClick={() => getEngine()?.resume()}>CONTINUAR</button></Overlay>}
         {game.status === "gameover" && <Overlay>
           <p className="mini-label">FIM DA JOGADA</p>
           <h2>{game.newRecord ? "NOVO RECORDE!" : "QUASE!"}</h2>
           <div className="final-score"><span>SEUS PONTOS</span><strong>{format(game.score)}</strong></div>
           <div className="run-stats"><div><span>MAIOR BLOCO</span><b>{game.largest}</b></div><div><span>MAIOR COMBO</span><b>{game.maxChain}×</b></div><div><span>TEMPO</span><b>{game.time}</b></div></div>
           <p>{game.newRecord ? "Essa merece outra rodada." : `Faltaram ${format(Math.max(0, game.best - game.score))} pontos para o recorde.`}</p>
-          {!game.continued && <><button className="primary" onClick={() => engine.rewardedContinue()}>▶ VER ANÚNCIO E CONTINUAR <small>simulação do protótipo</small></button><button className="secondary" disabled={game.coins < 25} onClick={() => engine.coinContinue()}>USAR <b>25</b> MOEDAS</button></>}
-          <button className={game.continued ? "primary" : "text-button"} onClick={() => engine.start()}>JOGAR DE NOVO · R</button>
+          {!game.continued && <><button className="primary" onClick={() => getEngine()?.rewardedContinue()}>▶ VER ANÚNCIO E CONTINUAR <small>simulação do protótipo</small></button><button className="secondary" disabled={game.coins < 25} onClick={() => getEngine()?.coinContinue()}>USAR <b>25</b> MOEDAS</button></>}
+          <button className={game.continued ? "primary" : "text-button"} onClick={() => getEngine()?.start()}>JOGAR DE NOVO · R</button>
         </Overlay>}
       </div>
 
       <footer className="statusbar">
         <div><span>PRÓXIMOS</span><b className="next-queue">{game.next.map((n, i) => <i key={`${n}-${i}`}>{n}</i>)}</b></div>
         <div><span>NÍVEL</span><b>{game.level}</b></div>
-        <button onClick={() => engine.toggleSound()}>SOM <b>{game.sound ? "ON" : "OFF"}</b></button>
+        <button onClick={() => getEngine()?.toggleSound()}>SOM <b>{game.sound ? "ON" : "OFF"}</b></button>
       </footer>
     </section>
 
