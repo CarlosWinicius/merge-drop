@@ -9,6 +9,25 @@
 - [ ] Executar `supabase/schema.sql` no projeto Supabase.
 - [ ] Testar login anônimo, ranking e modo offline.
 
+## Domínio wita.com.br no GitHub Pages
+
+No Registro.br, crie os registros DNS:
+
+- `A` para `@` → `185.199.108.153`
+- `A` para `@` → `185.199.109.153`
+- `A` para `@` → `185.199.110.153`
+- `A` para `@` → `185.199.111.153`
+- `CNAME` para `www` → `CarlosWinicius.github.io`
+
+O arquivo `public/CNAME` já está configurado com `wita.com.br`. A propagação pode levar algum tempo.
+
+## AdSense web
+
+- [ ] Criar e ter aprovação da conta AdSense.
+- [ ] Criar uma unidade de anúncio e copiar o Publisher ID (`ca-pub-...`) e o Slot ID.
+- [ ] Cadastrar `VITE_ADSENSE_CLIENT` e `VITE_ADSENSE_SLOT_GAME` como secrets do GitHub Actions.
+- [ ] Fazer novo deploy e verificar o anúncio sem usar cliques próprios.
+
 ## Container
 
 ```bash
