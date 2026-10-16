@@ -1,0 +1,9 @@
+{
+  "appId": "com.mergedrop.game",
+  "appName": "Merge Drop",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "android": {
+    "backgroundColor": "#080a12"
+  }
+}
