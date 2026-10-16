@@ -56,3 +56,5 @@ Abra `http://localhost:8080`. O endpoint `http://localhost:8080/healthz` retorna
 Para um deploy Docker no Render, o arquivo `render.yaml` já define o serviço e o health check. Para produção web estática, use Cloudflare Pages com build `npm run build` e saída `dist`.
 
 O workflow `.github/workflows/deploy-pages.yml` publica automaticamente a versão web no GitHub Pages a cada push na branch `main`.
+
+O domínio personalizado `wita.com.br` é publicado pelo arquivo `public/CNAME`. No Registro.br, aponte o domínio raiz para os IPs do GitHub Pages e `www` para `CarlosWinicius.github.io`.
