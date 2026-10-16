@@ -11,6 +11,7 @@ function Stat({ label, children, className = "" }) {
 function App() {
   const canvasRef = useRef(null);
   const engineRef = useRef(null);
+  const touchStartRef = useRef(null);
   const [game, setGame] = useState({ status: "idle", score: 0, best: 0, coins: 0, level: 1, next: [2, 4, 2], fever: 0, streak: 0, largest: 2 });
 
   useEffect(() => {
@@ -23,6 +24,27 @@ function App() {
   const playing = game.status === "playing";
   const target = game.largest < 128 ? 128 : game.largest < 512 ? 512 : 2048;
   const progress = Math.min(100, (game.largest / target) * 100);
+
+  const onTouchStart = event => {
+    if (game.status !== "playing") return;
+    const touch = event.changedTouches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  };
+
+  const onTouchEnd = event => {
+    const start = touchStartRef.current;
+    touchStartRef.current = null;
+    if (!start || game.status !== "playing") return;
+    const touch = event.changedTouches[0];
+    const dx = touch.clientX - start.x;
+    const dy = touch.clientY - start.y;
+    const distance = Math.max(Math.abs(dx), Math.abs(dy));
+    const engine = getEngine();
+    if (!engine) return;
+    if (distance < 24) engine.hardDrop();
+    else if (Math.abs(dx) > Math.abs(dy)) engine.move(dx > 0 ? 1 : -1);
+    else if (dy > 0) engine.step();
+  };
 
   return <main className="app-shell">
     <section className="brand-panel">
@@ -46,7 +68,7 @@ function App() {
         <Stat label="MOEDAS" className="coins"><i />{format(game.coins)}</Stat>
       </header>
 
-      <div className="game-frame">
+      <div className="game-frame" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
         <canvas ref={canvasRef} width="540" height="900" aria-label="Área do jogo Merge Drop" />
         <div className={`fever-hud ${game.turbo ? "active" : ""}`}>
           <div><span>RITMO</span><b>{game.streak}×</b></div>
@@ -65,6 +87,14 @@ function App() {
           <button className={game.continued ? "primary" : "text-button"} onClick={() => getEngine()?.start()}>JOGAR DE NOVO · R</button>
         </Overlay>}
       </div>
+
+      <nav className="touch-controls" aria-label="Controles de toque">
+        <button type="button" aria-label="Mover para esquerda" onClick={() => getEngine()?.move(-1)}>←</button>
+        <button type="button" aria-label="Acelerar peça" onClick={() => getEngine()?.step()}>↓</button>
+        <button type="button" aria-label="Mover para direita" onClick={() => getEngine()?.move(1)}>→</button>
+        <button type="button" className="drop-control" aria-label="Soltar peça" onClick={() => getEngine()?.hardDrop()}>SOLTAR</button>
+        <button type="button" aria-label="Pausar jogo" onClick={() => getEngine()?.togglePause()}>Ⅱ</button>
+      </nav>
 
       <footer className="statusbar">
         <div><span>PRÓXIMOS</span><b className="next-queue">{game.next.map((n, i) => <i key={`${n}-${i}`}>{n}</i>)}</b></div>
