@@ -49,9 +49,14 @@ function App() {
   return <main className="app-shell">
     <AdsenseAuto />
     <section className="brand-panel">
-      <p className="eyebrow">REACT + CAPACITOR</p>
+      <p className="eyebrow">WITA GAME HUB · REACT + CAPACITOR</p>
       <h1>MERGE<br /><span>DROP</span></h1>
-      <p className="tagline">Solte. Combine.<br />Quebre o seu recorde.</p>
+      <p className="tagline">Jogos rápidos.<br />Recordes infinitos.</p>
+      <div className="hub-card">
+        <p className="card-title">JOGOS DO HUB</p>
+        <button className="hub-game active" type="button" aria-current="page"><span className="hub-icon">4</span><span><b>MERGE DROP</b><small>Disponível agora · Puzzle</small></span><strong>JOGAR</strong></button>
+        <div className="hub-game locked"><span className="hub-icon">+</span><span><b>PRÓXIMO JOGO</b><small>Em breve</small></span><strong>•••</strong></div>
+      </div>
       <div className="controls-card">
         <p className="card-title">CONTROLES</p>
         <div><kbd>←</kbd><kbd>→</kbd><span>Mover</span></div>
