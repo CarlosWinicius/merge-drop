@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createGameSession } from "./application/create-game-session.js";
+import { AdsenseSlot } from "./ui/adsense-slot.jsx";
 
 const format = value => Number(value || 0).toLocaleString("pt-BR");
 
@@ -70,6 +71,7 @@ function App() {
         <div><span>NÍVEL</span><b>{game.level}</b></div>
         <button onClick={() => getEngine()?.toggleSound()}>SOM <b>{game.sound ? "ON" : "OFF"}</b></button>
       </footer>
+      <AdsenseSlot slot={import.meta.env.VITE_ADSENSE_SLOT_GAME} />
     </section>
 
     <aside className="mission-panel">

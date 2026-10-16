@@ -39,6 +39,10 @@ Veja também `DEPLOY_CHECKLIST.md` para os passos que ainda dependem de contas e
 
 O projeto não contém anúncios reais, credenciais ou keystore.
 
+## Anúncios na versão web
+
+O componente `src/ui/adsense-slot.jsx` só carrega o AdSense quando `VITE_ADSENSE_CLIENT` e `VITE_ADSENSE_SLOT_GAME` estão configurados. Crie a conta e a unidade de anúncio no Google AdSense, adicione essas variáveis como secrets do GitHub Actions e publique novamente. Sem aprovação e sem esses IDs, nenhum anúncio é exibido.
+
 ## Banco de dados
 
 Copie `.env.example` para `.env`, preencha as variáveis do Supabase e execute `supabase/schema.sql` no SQL Editor. O app usa autenticação anônima para não bloquear a primeira partida e envia uma partida ao banco somente quando a conexão estiver configurada. Sem conexão, recordes e moedas continuam no armazenamento local.
