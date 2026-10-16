@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createGameSession } from "./application/create-game-session.js";
-import { AdsenseSlot } from "./ui/adsense-slot.jsx";
+import { AdsenseAuto, AdsenseSlot } from "./ui/adsense-slot.jsx";
 
 const format = value => Number(value || 0).toLocaleString("pt-BR");
 
@@ -47,6 +47,7 @@ function App() {
   };
 
   return <main className="app-shell">
+    <AdsenseAuto />
     <section className="brand-panel">
       <p className="eyebrow">REACT + CAPACITOR</p>
       <h1>MERGE<br /><span>DROP</span></h1>
